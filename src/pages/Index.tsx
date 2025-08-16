@@ -4,6 +4,7 @@ import { ParticleBackground } from '@/components/ParticleBackground';
 import { VideoBackground } from '@/components/VideoBackground';
 import { EnterScreen } from '@/components/EnterScreen';
 import { MainContent } from '@/components/MainContent';
+import { AudioPlayer } from '@/components/AudioPlayer';
 
 const Index = () => {
   const [hasEntered, setHasEntered] = useState(false);
@@ -37,6 +38,11 @@ const Index = () => {
       <VideoBackground 
         isPlaying={hasEntered} 
         onLoadComplete={() => setVideoLoaded(true)}
+      />
+      <AudioPlayer 
+        isPlaying={hasEntered}
+        audioUrl="https://www.youtube.com/watch?v=YRlcRn7lh-k"
+        duration={32}
       />
       
       {!hasEntered && <EnterScreen onEnter={handleEnter} />}
