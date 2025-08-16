@@ -7,7 +7,6 @@ interface VideoBackgroundProps {
 
 export const VideoBackground = ({ isPlaying, onLoadComplete }: VideoBackgroundProps) => {
   const videoRef = useRef<HTMLIFrameElement>(null);
-  const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
     if (onLoadComplete) {
@@ -18,35 +17,11 @@ export const VideoBackground = ({ isPlaying, onLoadComplete }: VideoBackgroundPr
     }
   }, [onLoadComplete]);
 
-  useEffect(() => {
-    if (isPlaying && audioRef.current) {
-      audioRef.current.currentTime = 0;
-      audioRef.current.play().catch(console.error);
-      
-      // Stop audio after 32 seconds
-      const timer = setTimeout(() => {
-        if (audioRef.current) {
-          audioRef.current.pause();
-        }
-      }, 32000);
-      
-      return () => clearTimeout(timer);
-    }
-  }, [isPlaying]);
-
   return (
     <div className="fixed inset-0 z-[-1] overflow-hidden">
-      <audio
-        ref={audioRef}
-        preload="auto"
-        loop={false}
-      >
-        <source src="https://www.youtube.com/watch?v=YRlcRn7lh-k" type="audio/mpeg" />
-      </audio>
-      
       <div 
         className={`w-full h-full transition-opacity duration-1000 ${
-          isPlaying ? 'opacity-30' : 'opacity-0'
+          isPlaying ? 'opacity-40' : 'opacity-0'
         }`}
       >
         <iframe

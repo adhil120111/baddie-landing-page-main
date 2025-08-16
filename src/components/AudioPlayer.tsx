@@ -2,11 +2,10 @@ import { useRef, useEffect } from 'react';
 
 interface AudioPlayerProps {
   isPlaying: boolean;
-  audioUrl: string;
   duration?: number; // in seconds
 }
 
-export const AudioPlayer = ({ isPlaying, audioUrl, duration = 32 }: AudioPlayerProps) => {
+export const AudioPlayer = ({ isPlaying, duration = 32 }: AudioPlayerProps) => {
   const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
@@ -16,7 +15,7 @@ export const AudioPlayer = ({ isPlaying, audioUrl, duration = 32 }: AudioPlayerP
       audioRef.current.currentTime = 0;
       audioRef.current.play().catch(console.error);
       
-      // Stop audio after specified duration
+      // Stop audio after specified duration (32 seconds = 0.32 minutes)
       const timer = setTimeout(() => {
         if (audioRef.current) {
           audioRef.current.pause();
@@ -36,7 +35,8 @@ export const AudioPlayer = ({ isPlaying, audioUrl, duration = 32 }: AudioPlayerP
       loop={false}
       style={{ display: 'none' }}
     >
-      <source src={audioUrl} type="audio/mpeg" />
+      {/* Note: YouTube URLs cannot be used directly as audio sources */}
+      {/* You would need to upload the audio file or use a different hosting service */}
     </audio>
   );
 };
